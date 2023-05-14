@@ -13,3 +13,4 @@ streamlit run Home.py
 2. Nhận dạng khuôn mặt
 #
 ## Run on Host https://share.streamlit.io/
+https://ht-tuan-webml-home-go2aib.streamlit.app/
