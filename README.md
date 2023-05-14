@@ -1,4 +1,4 @@
-# Build Website Machine Learning Using Streamlit
+## Xây dựng website ứng dụng Machine Learning với Streamlit
 ![Alt](https://github.com/HT-Tuan/MachineLearning/blob/main/images/streamlit_hero.jpg?raw=true)
 #
 ## Hướng dẫn chạy chương trình
@@ -8,5 +8,8 @@ https://github.com/HT-Tuan/MachineLearning.git
 ### B3: thực hiện chạy dòng lệnh sau
 streamlit run Home.py  
 #
-## Link webapp deploy on Streamlit Sharing: https://ht-tuan-webml-home-hsbsth.streamlit.app/
-## Link github: https://github.com/HT-Tuan/WebML
+## Các chức năng hoàn thành:
+1. Phát hiện khuôn mặt
+2. Nhận dạng khuôn mặt
+#
+## Run on Host https://share.streamlit.io/

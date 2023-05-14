@@ -9,18 +9,22 @@ st.set_page_config(
 
 
 st.title('Phát hiện khuôn mặt')
-
 FRAME_WINDOW = st.image([])
+isCamera = False
+
 deviceId = 0
 cap = cv.VideoCapture(deviceId)
 
+if(cap.isOpened()):
+    isCamera = True
+else:
+    isCamera = False
 
-if 'stop' not in st.session_state:
+if 'stop' not in st.session_state and isCamera == True:
     st.session_state.stop = False
     stop = False
 
-press = st.button('Stop')
-if press:
+if isCamera == True and st.button('Stop'):
     if st.session_state.stop == False:
         st.session_state.stop = True
         cap.release()
@@ -29,16 +33,17 @@ if press:
 
 print('Trang thai nhan Stop', st.session_state.stop)
 
-if 'frame_stop' not in st.session_state:
+if 'frame_stop' not in st.session_state and isCamera == True:
     frame_stop = cv.imread('./images/stop.jpg')
     st.session_state.frame_stop = frame_stop
     print('Đã load stop.jpg')
 
-if st.session_state.stop == True:
+if st.session_state.stop == True and isCamera == True:
     FRAME_WINDOW.image(st.session_state.frame_stop, channels='BGR')
 
 
 def visualize(input, faces, fps, thickness=2):
+    dem = 0
     if faces[1] is not None:
         for idx, face in enumerate(faces[1]):
             # print('Face {}, top-left coordinates: ({:.0f}, {:.0f}), box width: {:.0f}, box height {:.0f}, score: {:.2f}'.format(idx, face[0], face[1], face[2], face[3], face[-1]))
@@ -50,7 +55,9 @@ def visualize(input, faces, fps, thickness=2):
             cv.circle(input, (coords[8], coords[9]), 2, (0, 255, 0), thickness)
             cv.circle(input, (coords[10], coords[11]), 2, (255, 0, 255), thickness)
             cv.circle(input, (coords[12], coords[13]), 2, (0, 255, 255), thickness)
+            dem = dem + 1
     cv.putText(input, 'FPS: {:.2f}'.format(fps), (1, 16), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+    cv.putText(input, 'Total: {:d}'.format(dem), (1, 50), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
 detector = cv.FaceDetectorYN.create(
     './src/Face_detection/face_detection_yunet_2022mar.onnx',
@@ -62,26 +69,54 @@ detector = cv.FaceDetectorYN.create(
 )
 
 tm = cv.TickMeter()
-frameWidth = int(cap.get(cv.CAP_PROP_FRAME_WIDTH))
-frameHeight = int(cap.get(cv.CAP_PROP_FRAME_HEIGHT))
-detector.setInputSize([frameWidth, frameHeight])
 
-while True:
-    hasFrame, frame = cap.read()
-    if not hasFrame:
-        print('No frames grabbed!')
-        break
+if isCamera == False:
+    camera_st = st.camera_input(label="CAMERA")
 
-    frame = cv.resize(frame, (frameWidth, frameHeight))
+    if camera_st is not None :
+        bytes_data = camera_st.getvalue()
+        img = cv.imdecode(np.frombuffer(bytes_data, np.uint8), cv.IMREAD_COLOR)
+        height, width, channels = img.shape
 
-    # Inference
-    tm.start()
-    faces = detector.detect(frame) # faces is a tuple
-    tm.stop()
+        frameWidth = int(width)
+        frameHeight = int(height)
+        detector.setInputSize([frameWidth, frameHeight])
 
-    # Draw results on the input image
-    visualize(frame, faces, tm.getFPS())
+        frame = cv.resize(img, (frameWidth, frameHeight))
 
-    # Visualize results
-    FRAME_WINDOW.image(frame, channels='BGR')
-cv.destroyAllWindows()
+        # Inference
+        tm.start()
+        faces = detector.detect(frame) # faces is a tuple
+        tm.stop()
+
+        # Draw results on the input image
+        visualize(frame, faces, tm.getFPS())
+
+        st.image(frame, channels='BGR')
+else:
+    frameWidth = int(cap.get(cv.CAP_PROP_FRAME_WIDTH))
+    frameHeight = int(cap.get(cv.CAP_PROP_FRAME_HEIGHT))
+    detector.setInputSize([frameWidth, frameHeight])
+    while True:
+        hasFrame, frame = cap.read()
+        if not hasFrame:
+            print('No frames grabbed!')
+            break
+
+        frame = cv.resize(frame, (frameWidth, frameHeight))
+
+        # Inference
+        tm.start()
+        faces = detector.detect(frame) # faces is a tuple
+        tm.stop()
+
+        # Draw results on the input image
+        visualize(frame, faces, tm.getFPS())
+
+        # Visualize results
+        FRAME_WINDOW.image(frame, channels='BGR')
+
+try:
+    cv.destroyAllWindows()
+except cv.error:
+    pass
