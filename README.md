@@ -1,6 +1,9 @@
-# WebML
-### Đã hoàn thành chức năng:
-1. Phát hiện khuôn mặt
-2. Nhận dạng khuôn mặt
-3. Nhận dạng chữ số viết tay
-4. Dự báo giá là ở California
+# Build Website Machine Learning Using Streamlit
+![Alt](https://github.com/HT-Tuan/MachineLearning/blob/main/images/streamlit_hero.jpg?raw=true)
+#
+## Hướng dẫn chạy chương trình
+### B1: Tải Repository về máy
+https://github.com/HT-Tuan/MachineLearning.git
+### B2: thực hiện di chuyển đến thư mục my_app trong Repository vừa tải về. Và copy model "forest_reg_model.pkl" vào thư mục NhanDangChuSoVietTay tương ứng
+### B3: thực hiện chạy dòng lệnh sau
+streamlit run Home.py  
