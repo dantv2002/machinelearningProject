@@ -3,3 +3,4 @@ numpy
 streamlit
 scikit-learn
 tensorflow
+gdown

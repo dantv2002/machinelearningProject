@@ -11,6 +11,8 @@ streamlit run Home.py
 ## Các chức năng hoàn thành:
 1. Phát hiện khuôn mặt
 2. Nhận dạng khuôn mặt
+3. Nhận dạng chữ số viết tay
+4. Dự báo giá là ở California
 #
 ## Run on Host https://share.streamlit.io/
-https://ht-tuan-webml-home-go2aib.streamlit.app/
+https://ht-tuan-webml-home-k5r8av.streamlit.app/
