@@ -20,7 +20,7 @@ if(cap.isOpened()):
 else:
     isCamera = False
 
-if 'stop' not in st.session_state and isCamera == True:
+if isCamera == True and 'stop' not in st.session_state:
     st.session_state.stop = False
     stop = False
 
@@ -31,14 +31,15 @@ if isCamera == True and st.button('Stop'):
     else:
         st.session_state.stop = False
 
-print('Trang thai nhan Stop', st.session_state.stop)
+    print('Trang thai nhan Stop', st.session_state.stop)
 
-if 'frame_stop' not in st.session_state and isCamera == True:
+
+if isCamera == True and 'frame_stop' not in st.session_state:
     frame_stop = cv.imread('./images/stop.jpg')
     st.session_state.frame_stop = frame_stop
     print('Đã load stop.jpg')
 
-if st.session_state.stop == True and isCamera == True:
+if isCamera == True and st.session_state.stop == True:
     FRAME_WINDOW.image(st.session_state.frame_stop, channels='BGR')
 
 
