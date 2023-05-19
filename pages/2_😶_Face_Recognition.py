@@ -137,8 +137,4 @@ if __name__ == '__main__':
 
             # Visualize results
             FRAME_WINDOW.image(frame, channels='BGR')
-    try:
-        cv.destroyAllWindows()
-    except cv.error:
-        pass
 

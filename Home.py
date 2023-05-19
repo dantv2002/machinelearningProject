@@ -2,7 +2,7 @@ import streamlit as st
 
 st.set_page_config(
     page_title="Trang chủ",
-    page_icon="🇻🇳"
+    page_icon="🚀"
 )
 
 st.write("# Welcome to website machine learning with Streamlit! 👋")
