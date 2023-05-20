@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import cv2
 from keras.models import model_from_json
+import uuid
 
 st.set_page_config(
     page_title="Nhận diện cảm xúc",
@@ -78,7 +79,8 @@ while True:
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     else:
-        camera_st = st.camera_input(label="CAMERA 1", key="camera1")
+        camera_key = "camera_" + str(uuid.uuid4())
+        camera_st = st.camera_input(label="CAMERA", key=camera_key)
         if camera_st is not None:
             frame = cv2.imdecode(np.frombuffer(camera_st.getvalue(), np.uint8), cv2.IMREAD_COLOR)
             frame = cv2.resize(frame, (frameWidth, frameHeight))
