@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import streamlit as st
 import numpy as np
 import cv2
@@ -105,6 +106,8 @@ while True:
 =======
 =======
 >>>>>>> parent of 1eef2d0 (Add files via upload)
+=======
+>>>>>>> parent of 1eef2d0 (Add files via upload)
 import streamlit as st
 import numpy as np
 import cv2
@@ -195,6 +198,10 @@ while True:
 
 cap.release()
 <<<<<<< HEAD
+<<<<<<< HEAD
+cv2.destroyAllWindows()
+>>>>>>> parent of 1eef2d0 (Add files via upload)
+=======
 cv2.destroyAllWindows()
 >>>>>>> parent of 1eef2d0 (Add files via upload)
 =======
