@@ -5,21 +5,29 @@ st.set_page_config(
     page_icon="🚀"
 )
 
-st.write("# Welcome to website machine learning with Streamlit! 👋")
+css = """
+    <style>
+        .css-6qob1r {
+            background-color: #98EECC;
+        }
+    </style>
+"""
+st.markdown(css, unsafe_allow_html=True)
 
-st.sidebar.success("Select a function above.")
-
-st.image("https://github.com/HT-Tuan/MachineLearning/blob/main/images/streamlit_hero.jpg?raw=true", width=500)
+st.image("./images/banner.jpg")
 
 st.markdown(
-    """   
-    Machine Learning and Data Science projects.
+    """
     
-    👈 Select a function from the sidebar** to see some detection
-    of what Streamlit can do!
+    **Môn học: Học máy**
     
-    Own by: 
-    1. Huynh Thanh Tuan - 20110120
-    2. Tran Van Dan - 20110451
+    **Giảng viên hướng dẫn: Trần Tiến Đức**
+    
+    **Thực hiện:**
+    
+    **1. Huỳnh Thanh Tuấn - 20110120**
+    
+    **2. Trần Văn Dân - 20110451**
+    
 """
 )
