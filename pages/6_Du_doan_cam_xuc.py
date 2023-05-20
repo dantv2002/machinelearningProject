@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import streamlit as st
 import numpy as np
 import cv2
@@ -102,6 +103,8 @@ while True:
 
             FRAME_WINDOW.image(frame, channels='BGR')
 =======
+=======
+>>>>>>> parent of 1eef2d0 (Add files via upload)
 import streamlit as st
 import numpy as np
 import cv2
@@ -191,5 +194,9 @@ while True:
         break
 
 cap.release()
+<<<<<<< HEAD
+cv2.destroyAllWindows()
+>>>>>>> parent of 1eef2d0 (Add files via upload)
+=======
 cv2.destroyAllWindows()
 >>>>>>> parent of 1eef2d0 (Add files via upload)
