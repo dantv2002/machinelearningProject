@@ -33,11 +33,9 @@ detector = cv2.FaceDetectorYN.create(
     (320, 320),
     0.9,
     0.3,
-    5000
-)
+    5000)
 
 FRAME_WINDOW = st.image([])
-
 stop_button = st.button("Stop")
 
 cap = cv2.VideoCapture(0)
@@ -79,5 +77,26 @@ while True:
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     else:
-        st.warning("No camera found!")
-        break
+        camera_st = st.camera_input(label="CAMERA")
+        if camera_st is not None:
+            frame = cv2.imdecode(np.frombuffer(camera_st.getvalue(), np.uint8), cv2.IMREAD_COLOR)
+            frame = cv2.resize(frame, (frameWidth, frameHeight))
+            gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            faces = detector.detect(frame)
+            if faces[1] is not None:
+                for idx, face in enumerate(faces[1]):
+                    coords = face[:-1].astype(np.int32)
+                    x = coords[0]
+                    y = coords[1]
+                    w = coords[2]
+                    h = coords[3]
+
+                    cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                    roi_gray_frame = gray_frame[y:y + h, x:x + w]
+                    cropped_img = np.expand_dims(np.expand_dims(cv2.resize(roi_gray_frame, (48, 48)), -1), 0)
+
+                    emotion_prediction = emotion_model.predict(cropped_img)
+                    maxindex = int(np.argmax(emotion_prediction))
+                    cv2.putText(frame, emotion_dict[maxindex], (x+5, y-20), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
+
+            FRAME_WINDOW.image(frame, channels='BGR')
