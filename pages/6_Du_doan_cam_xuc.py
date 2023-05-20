@@ -78,7 +78,7 @@ while True:
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     else:
-        camera_st = st.camera_input(label="CAMERA")
+        camera_st = st.camera_input(label="CAMERA 1", key="camera1")
         if camera_st is not None:
             frame = cv2.imdecode(np.frombuffer(camera_st.getvalue(), np.uint8), cv2.IMREAD_COLOR)
             frame = cv2.resize(frame, (frameWidth, frameHeight))
